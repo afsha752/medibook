@@ -1,0 +1,16 @@
+# Java/Spring
+backend/target/
+backend/.mvn/
+
+# Node/React
+frontend/node_modules/
+frontend/build/
+
+# Python
+ml-service/__pycache__/
+ml-service/venv/
+
+# Env files
+.env
+application-local.properties
+backend/src/main/resources/application.properties
