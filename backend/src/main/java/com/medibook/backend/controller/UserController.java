@@ -44,4 +44,15 @@ public class UserController {
         userRepository.deleteById(id);
         return "User deleted with id " + id;
     }
+    @PostMapping("/login")
+    public String login(@RequestBody User loginRequest) {
+        User user = userRepository.findByEmail(loginRequest.getEmail())
+                .orElseThrow(() -> new RuntimeException("Invalid email or password"));
+
+        if (passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
+            return "Login successful for " + user.getName();
+        } else {
+            throw new RuntimeException("Invalid email or password");
+        }
+    }
 }
