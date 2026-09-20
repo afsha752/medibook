@@ -46,7 +46,7 @@ function MyAppointments() {
         )}
         {appointments.map(a => (
           <div className="card" key={a.id}>
-            <div className="doctor-name">Dr. {a.doctor.user.name}</div>
+           <div className="doctor-name">{a.doctor.user.name}</div>
             <div className="doctor-specialization">{a.doctor.specialization.name}</div>
             <p style={{ margin: '8px 0 4px', fontSize: '14px' }}>
               📅 {a.appointmentDate} at {a.appointmentTime}

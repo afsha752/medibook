@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
 function BookAppointment() {
@@ -9,6 +10,7 @@ function BookAppointment() {
   const [time, setTime] = useState('')
   const [symptoms, setSymptoms] = useState('')
   const [message, setMessage] = useState('')
+    const navigate = useNavigate()
 
   useEffect(() => {
     fetch('http://localhost:8080/api/doctors')
@@ -40,11 +42,9 @@ function BookAppointment() {
         }
         return response.json()
       })
-      .then(() => {
-        setMessage('Appointment booked successfully!')
-        setDate('')
-        setTime('')
-        setSymptoms('')
+            .then(() => {
+        setMessage('Appointment booked successfully! Redirecting...')
+        setTimeout(() => navigate('/my-appointments'), 1200)
       })
       .catch(error => setMessage(error.message))
   }
