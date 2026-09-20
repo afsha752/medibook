@@ -23,12 +23,13 @@ function Login() {
       .catch(error => setMessage(error.message))
   }
 
-  return (
-    <div>
+    return (
+    <div className="page-container">
       <h1>Login</h1>
+      <p className="subtitle">Welcome back to MediBook</p>
       <form onSubmit={handleLogin}>
         <div>
-          <label>Email</label><br />
+          <label>Email</label>
           <input
             type="email"
             value={email}
@@ -37,7 +38,7 @@ function Login() {
           />
         </div>
         <div>
-          <label>Password</label><br />
+          <label>Password</label>
           <input
             type="password"
             value={password}
@@ -47,7 +48,7 @@ function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
-      {message && <p>{message}</p>}
+      {message && <p className="message">{message}</p>}
     </div>
   )
 }

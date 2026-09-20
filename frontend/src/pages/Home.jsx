@@ -11,18 +11,19 @@ function Home() {
   }, [])
 
   return (
-    <div>
+    <div className="page-container">
       <h1>MediBook</h1>
-      <p>Doctor Appointment Booking System</p>
+      <p className="subtitle">Find and book the right doctor for you</p>
 
-      <h2>Available Doctors</h2>
-      <ul>
-        {doctors.map(doctor => (
-          <li key={doctor.id}>
-            {doctor.user.name} — {doctor.specialization.name} — ₹{doctor.consultationFee}
-          </li>
-        ))}
-      </ul>
+      {doctors.map(doctor => (
+        <div className="card doctor-card" key={doctor.id}>
+          <div>
+            <div className="doctor-name">{doctor.user.name}</div>
+            <div className="doctor-specialization">{doctor.specialization.name}</div>
+          </div>
+          <div className="doctor-fee">₹{doctor.consultationFee}</div>
+        </div>
+      ))}
     </div>
   )
 }
