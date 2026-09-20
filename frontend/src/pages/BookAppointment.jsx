@@ -74,7 +74,14 @@ function BookAppointment() {
         </div>
         <div>
           <label>Date</label>
-          <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+          <input
+  type="date"
+  value={date}
+  onChange={(e) => setDate(e.target.value)}
+  min={new Date().toISOString().split('T')[0]}
+  max="2027-12-31"
+  required
+/>
         </div>
         <div>
           <label>Time</label>

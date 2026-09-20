@@ -1,10 +1,12 @@
+import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
-
+  const navigate = useNavigate()
+  
   const handleLogin = (e) => {
     e.preventDefault()
 
@@ -19,7 +21,10 @@ function Login() {
         }
         return response.text()
       })
-      .then(data => setMessage(data))
+           .then(data => {
+        setMessage(data)
+        setTimeout(() => navigate('/'), 1000)
+      })
       .catch(error => setMessage(error.message))
   }
 
