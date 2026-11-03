@@ -1,10 +1,12 @@
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
 function BookAppointment() {
   const [doctors, setDoctors] = useState([])
   const [patients, setPatients] = useState([])
-  const [doctorId, setDoctorId] = useState('')
+  const [searchParams] = useSearchParams()
+const [doctorId, setDoctorId] = useState(searchParams.get('doctor') || '')
   const [patientId, setPatientId] = useState('')
   const [date, setDate] = useState('')
   const [time, setTime] = useState('')

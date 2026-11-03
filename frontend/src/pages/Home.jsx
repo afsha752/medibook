@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 
 const symptomMap = {
   'Cardiologist': ['chest pain', 'heart', 'breathless', 'shortness of breath', 'palpitation', 'blood pressure', 'bp', 'cholesterol'],
@@ -89,7 +90,10 @@ function Home() {
               <div className="doctor-name">{doctor.user.name}</div>
               <div className="doctor-specialization">{doctor.specialization.name}</div>
             </div>
-            <div className="doctor-fee">₹{doctor.consultationFee}</div>
+            <div className="doctor-right">
+  <div className="doctor-fee">₹{doctor.consultationFee}</div>
+  <Link className="book-btn" to={`/book?doctor=${doctor.id}`}>Book</Link>
+</div>
           </div>
         ))}
       </div>
