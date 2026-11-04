@@ -23,7 +23,20 @@ function Login() {
       })
            .then(data => {
         setMessage(data)
-        setTimeout(() => navigate('/'), 1000)
+        return fetch('http://localhost:8080/api/users')
+          .then(res => res.json())
+          .then(users => {
+            const me = users.find(u => u.email === email)
+            if (me) {
+              localStorage.setItem('user', JSON.stringify({
+                id: me.id,
+                name: me.name,
+                email: me.email,
+                role: me.role
+              }))
+            }
+            setTimeout(() => navigate('/'), 1000)
+          })
       })
       .catch(error => setMessage(error.message))
   }

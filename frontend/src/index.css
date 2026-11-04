@@ -239,3 +239,23 @@ footer {
 .book-btn:hover {
   background: #0b5ed7;
 }
+
+.nav-user {
+  font-weight: 500;
+  color: #0d6efd;
+}
+
+.logout-btn {
+  background: #ffffff;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #dc3545;
+  color: white;
+}

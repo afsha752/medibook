@@ -1,15 +1,26 @@
 import { useState, useEffect } from 'react'
 
+function getLoggedInUser() {
+  try {
+    return JSON.parse(localStorage.getItem('user'))
+  } catch (e) {
+    return null
+  }
+}
+
 function MyAppointments() {
+  const user = getLoggedInUser()
   const [patients, setPatients] = useState([])
-  const [patientId, setPatientId] = useState('')
+  const [patientId, setPatientId] = useState(user ? String(user.id) : '')
   const [appointments, setAppointments] = useState([])
   const [allAppointments, setAllAppointments] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:8080/api/users')
-      .then(res => res.json())
-      .then(data => setPatients(data.filter(u => u.role === 'PATIENT')))
+    if (!user) {
+      fetch('http://localhost:8080/api/users')
+        .then(res => res.json())
+        .then(data => setPatients(data.filter(u => u.role === 'PATIENT')))
+    }
 
     fetch('http://localhost:8080/api/appointments')
       .then(res => res.json())
@@ -28,17 +39,21 @@ function MyAppointments() {
   return (
     <div className="page-container">
       <h1>My Appointments</h1>
-      <p className="subtitle">View your booked appointments</p>
+      <p className="subtitle">
+        {user ? `Appointments for ${user.name}` : 'View your booked appointments'}
+      </p>
 
-      <div>
-        <label>Select Patient</label>
-        <select value={patientId} onChange={(e) => setPatientId(e.target.value)}>
-          <option value="">Select patient</option>
-          {patients.map(p => (
-            <option key={p.id} value={p.id}>{p.name}</option>
-          ))}
-        </select>
-      </div>
+      {!user && (
+        <div>
+          <label>Select Patient</label>
+          <select value={patientId} onChange={(e) => setPatientId(e.target.value)}>
+            <option value="">Select patient</option>
+            {patients.map(p => (
+              <option key={p.id} value={p.id}>{p.name}</option>
+            ))}
+          </select>
+        </div>
+      )}
 
       <div style={{ marginTop: '24px' }}>
         {patientId && appointments.length === 0 && (
@@ -46,7 +61,7 @@ function MyAppointments() {
         )}
         {appointments.map(a => (
           <div className="card" key={a.id}>
-           <div className="doctor-name">{a.doctor.user.name}</div>
+            <div className="doctor-name">{a.doctor.user.name}</div>
             <div className="doctor-specialization">{a.doctor.specialization.name}</div>
             <p style={{ margin: '8px 0 4px', fontSize: '14px' }}>
               📅 {a.appointmentDate} at {a.appointmentTime}
